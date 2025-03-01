@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from "@angular/core";
+import { Component, ElementRef, inject, ViewChild } from "@angular/core";
 import { ProfileService } from "./profile.service";
 import { FormsModule } from "@angular/forms";
 
@@ -12,23 +12,24 @@ import { FormsModule } from "@angular/forms";
             <div class="d-flex flex-row m-5">
                 <div class="pe-4 ps-4">
                     <strong>Feel Free to contact me</strong>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
-                            <input type="text" class="form-control" placeholder="Name" [(ngModel)]="emailData.name">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-vector-pen"></i></span>
-                            <input type="text" class="form-control" placeholder="Subject" [(ngModel)]="emailData.subject">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-at"></i></span>
-                            <input type="text" class="form-control" placeholder="E-mail" [(ngModel)]="emailData.emailId">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
-                            <textarea class="form-control" placeholder="Your Message" [(ngModel)]="emailData.message"></textarea>
-                        </div>
-                        <button #emailButton type="button" class="btn custom-bg-color1 text-white mt-4" (click)="sendEmail()">Send</button> 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
+                        <input type="text" class="form-control" placeholder="Name" [(ngModel)]="emailData.name">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-vector-pen"></i></span>
+                        <input type="text" class="form-control" placeholder="Subject" [(ngModel)]="emailData.subject">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-at"></i></span>
+                        <input type="text" class="form-control" placeholder="E-mail" [(ngModel)]="emailData.emailId">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-journal-text"></i></span>
+                        <textarea class="form-control" placeholder="Your Message" [(ngModel)]="emailData.message"></textarea>
+                    </div>
+                    <!-- Hidden anchor tag for triggering mailto -->
+                    <button #emailButton type="button" class="btn custom-bg-color1 text-white mt-4" (click)="sendEmail()" >Send</button> 
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <span><strong>Address</strong></span>
@@ -46,6 +47,7 @@ import { FormsModule } from "@angular/forms";
     imports: [FormsModule]
 })
 export class ContactComponent{
+    @ViewChild('emailButton') emailButtonRef!: ElementRef;
     profileService = inject(ProfileService);
     profile = this.profileService.profile;
 
@@ -59,14 +61,17 @@ export class ContactComponent{
 
     sendEmail(){
         const { name, subject, emailId, message } = this.emailData;
-        //@ViewChild('emailButton') emailButton!: ElementRef;
-
+        
         if (!name || !subject || !emailId) {
             alert('Please fill all fields');
             return;
         }
 
-        //try to use elementRef below
-        window.location.href = `mailto:${this.profile.email}?from=${encodeURIComponent(emailId)}subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        // Create the "mailto:" link
+        const mailtoLink = `mailto:${this.profile.email}?from=${encodeURIComponent(emailId)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        
+        // Use ElementRef to set the href dynamically on a button
+        this.emailButtonRef.nativeElement.href = mailtoLink;
+        this.emailButtonRef.nativeElement.click();
     }
 }

@@ -19,9 +19,9 @@ import { FooterComponent } from "./footer.component";
       <app-skill></app-skill>
       <app-experience></app-experience>
       <app-education></app-education>      
-      <app-contact></app-contact>
-      <app-footer></app-footer>
+      <app-contact></app-contact>      
     </div>
+    <app-footer></app-footer>
   </div>`,
   styleUrl: './app.component.css'
 })

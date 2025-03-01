@@ -2,12 +2,12 @@ import { Component } from "@angular/core";
 import { saveAs } from 'file-saver';
 
 @Component({
-    selector: 'app-button',
+    selector: 'app-download',
     template: `
         <button class="btn btn-custom" (click)="downloadPDF()">{{title}}</button>
     `,    
 })
-export class ButtonComponent{
+export class DownloadComponent{
     title = "Download CV";
 
     downloadPDF() {

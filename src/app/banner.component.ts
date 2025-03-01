@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavigationComponent } from './navigation.component';
-import { ButtonComponent } from "./button.component";
+import { DownloadComponent } from "./download.component";
 import { ProfileService } from "./profile.service";
 import { JoinWithPipe } from './joinwithpipe.pipe';
 
@@ -14,7 +14,7 @@ import { JoinWithPipe } from './joinwithpipe.pipe';
         <div class="centered-banner-content">
             <h1 class="text-white">{{ profile.first_name }}  {{ profile.last_name }}</h1>
             <h4 class="text-white">{{ profile.passion | joinWithPipe}}</h4>
-            <app-button></app-button>                          
+            <app-download></app-download>                          
             <div class="mt-3 rounded-5 p-2 custom-bg-color2 d-flex flex-row">
                 <div class="p-2">
                     <span><i class="bi bi-linkedin me-2"></i></span>
@@ -28,7 +28,7 @@ import { JoinWithPipe } from './joinwithpipe.pipe';
         </div>       
     </div>
         `,  
-    imports: [NavigationComponent, ButtonComponent, JoinWithPipe]
+    imports: [NavigationComponent, JoinWithPipe, DownloadComponent]
 })
 export class BannerComponent{
     profileService = inject(ProfileService);
