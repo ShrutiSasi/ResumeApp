@@ -5,14 +5,12 @@ import { FormsModule } from "@angular/forms";
 @Component({
     selector: 'app-contact',
     template: `
-    <div class="d-flex justify-content-center align-items-center">
-    <div class="col-11 rounded-2 mt-4 shadow center">
-        <h4 class="text-center pt-3"><strong>{{ title }}</strong></h4>
-        <div class=" table-responsive">
-        <table class="table">
-            <tr>
-                <td>
-                    <div>
+    <div class="contactMap mt-4">
+        <div class="d-flex justify-content-center align-items-center">
+        <div class="rounded-2 bg-white shadow center">
+            <h4 class="text-center pt-3"><strong>{{ title }}</strong></h4>
+            <div class="d-flex flex-row m-5">
+                <div class="pe-4 ps-4">
                     <strong>Feel Free to contact me</strong>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
@@ -31,24 +29,19 @@ import { FormsModule } from "@angular/forms";
                             <textarea class="form-control" placeholder="Your Message" [(ngModel)]="emailData.message"></textarea>
                         </div>
                         <button #emailButton type="button" class="btn custom-bg-color1 text-white mt-4" (click)="sendEmail()">Send</button> 
-                    </div>
-                </td>
-                <td>
-                    <p><strong>Address</strong> <br>
-                        {{ profile.address }} <br>
-                    </p>
-                    <p><strong>Phone</strong> <br>
-                        {{ profile.phone }} <br>
-                    </p>
-                    <p><strong>Email</strong> <br>
-                        {{ profile.email }} <br>
-                    </p>
-                </td>
-            </tr>
-        </table>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <span><strong>Address</strong></span>
+                    <span class="pb-4">{{ profile.address }}</span>
+                    <span><strong>Phone</strong></span>
+                    <span class="pb-4">{{ profile.phone }}</span>
+                    <span><strong>Email</strong></span>
+                    <span class="pb-4">{{ profile.email }}</span>
+                </div>
+            </div>            
+        </div>
         </div>
     </div>
-</div>
     `,
     imports: [FormsModule]
 })
@@ -73,6 +66,7 @@ export class ContactComponent{
             return;
         }
 
+        //try to use elementRef below
         window.location.href = `mailto:${this.profile.email}?from=${encodeURIComponent(emailId)}subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
     }
 }
