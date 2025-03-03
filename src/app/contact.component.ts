@@ -29,7 +29,9 @@ import { FormsModule } from "@angular/forms";
                         <textarea class="form-control" placeholder="Your Message" [(ngModel)]="emailData.message"></textarea>
                     </div>
                     <!-- Hidden anchor tag for triggering mailto -->
-                    <button #emailButton type="button" class="btn custom-bg-color1 text-white mt-4" (click)="sendEmail()" >Send</button> 
+                     <a #emailButton>
+                    <button  type="button" class="btn custom-bg-color1 text-white mt-4" (click)="sendEmail()" >Send</button> 
+                    </a>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <span><strong>Address</strong></span>
@@ -67,11 +69,14 @@ export class ContactComponent{
             return;
         }
 
+        const body = `${message}\n\n${name}`;
         // Create the "mailto:" link
-        const mailtoLink = `mailto:${this.profile.email}?from=${encodeURIComponent(emailId)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        const mailtoLink = `mailto:${this.profile.email}?from=${encodeURIComponent(emailId)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         
         // Use ElementRef to set the href dynamically on a button
-        this.emailButtonRef.nativeElement.href = mailtoLink;
+        this.emailButtonRef.nativeElement.setAttribute('href', mailtoLink)
         this.emailButtonRef.nativeElement.click();
+
+        //window.location.href = mailtoLink;
     }
 }
