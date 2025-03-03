@@ -30,15 +30,15 @@ export class EducationComponent{
             college: 'Humber Polytechnic',
             location: 'Toronto, ON, Canada',
             degree: 'Full Stack .NET Cloud Developer Program',
-            from_date: new Date(2024,10),
-            to_date: new Date(2025,3)
+            from_date: new Date(2024,9), //months are zero based hence 9 is october
+            to_date: new Date(2025,2)
         },
         {
             college: 'Visvesvaraya Technological University',
             location: 'Belgavi, India',
             degree: 'Bachelor of Information Science and Engineering',
-            from_date: new Date(2005,9),
-            to_date: new Date(2009,8)
+            from_date: new Date(2005,8),
+            to_date: new Date(2009,7)
         }
     ];
 }
